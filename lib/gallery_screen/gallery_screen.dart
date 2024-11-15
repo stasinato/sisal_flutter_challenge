@@ -113,7 +113,7 @@ class GalleryScreen extends StatelessWidget {
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: _buildAddPhotoButton(context),
