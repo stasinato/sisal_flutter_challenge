@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sisal_flutter_challenge/gazzetta/cubit/gazzetta_cubit.dart';
 import 'package:sisal_flutter_challenge/router/app_router.dart';
+
+import 'gazzetta_screen/cubit/gazzetta_cubit.dart';
 
 void main() {
   runApp(MultiBlocProvider(providers: [

@@ -2,9 +2,10 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sisal_flutter_challenge/gazzetta/models/gazzetta_article.dart';
-import 'package:sisal_flutter_challenge/gazzetta/repository/gazzetta_repository.dart';
 import 'package:xml/xml.dart';
+
+import '../models/gazzetta_article.dart';
+import '../repository/gazzetta_repository.dart';
 
 part 'gazzetta_state.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sisal_flutter_challenge/gazzetta/show_article_web_view.dart';
 
-import '../gazzetta/gazzetta_screen.dart';
+import '../gazzetta_screen/gazzetta_screen.dart';
+import '../gazzetta_screen/show_article_web_view.dart';
 import '../main_screen.dart';
 
 // GoRouter configuration

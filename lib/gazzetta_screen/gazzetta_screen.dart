@@ -2,7 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sisal_flutter_challenge/gazzetta/cubit/gazzetta_cubit.dart';
+
+import 'cubit/gazzetta_cubit.dart';
 
 class GazzettaScreen extends StatelessWidget {
   const GazzettaScreen({super.key});
