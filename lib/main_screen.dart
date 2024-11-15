@@ -12,7 +12,7 @@ class MainScreen extends StatelessWidget {
       body: Center(
         child: navigationShell,
       ),
-      bottomNavigationBar: CupertinoTabBar(
+      bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.sports_soccer), label: 'Gazzetta'),
