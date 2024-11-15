@@ -1,6 +1,4 @@
-# sisal_flutter_challenge
-
-Sisal Flutter Challenge
+# Flutter Challenge
 
 # Architettura del progetto
 
@@ -11,7 +9,8 @@ il package 'go_router'.
 
 L'app è divisa in cartelle, ognuna delle quali contiene una sezione diversa.
 
-cubits: per la gestione dello stato.
+##### cubits: per la gestione dello stato.
+
 widgets: per i componenti grafici riutilizzabili.
 repository: per la gestione dei dati e delle chiamate ai servizi.
 models: per la definizione dei modelli.
