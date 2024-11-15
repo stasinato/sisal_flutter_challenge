@@ -57,7 +57,7 @@ class GalleryCubit extends Cubit<GalleryState> {
 
   Future<void> pickImageFromGallery() async {
     try {
-      final image = await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         await _saveImage(image);
         emit(GalleryPickerSuccess(image));
@@ -82,11 +82,7 @@ class GalleryCubit extends Cubit<GalleryState> {
   }
 
   Future<void> _saveImage(XFile image) async {
-    try {
-      final imagePath = await _getImagePath();
-      await File(image.path).copy(imagePath);
-    } catch (e) {
-      emit(GalleryError('Error saving photo: $e', state.image));
-    }
+    final imagePath = await _getImagePath();
+    await File(image.path).copy(imagePath);
   }
 }
