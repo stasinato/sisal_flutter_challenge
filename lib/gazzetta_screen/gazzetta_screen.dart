@@ -19,6 +19,7 @@ class GazzettaScreen extends StatelessWidget {
           children: [
             BlocBuilder<GazzettaCubit, GazzettaState>(
               builder: (context, state) {
+                /// LOADING STATE PER FETCHARE ARTICOLI
                 if (state is GazzettaLoading) {
                   return const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -28,6 +29,7 @@ class GazzettaScreen extends StatelessWidget {
                   );
                 }
 
+                /// ERROR STATE - L'UTENTE PUÒ PROVARE A RICARICARE I DATI
                 if (state is GazzettaError) {
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -47,6 +49,7 @@ class GazzettaScreen extends StatelessWidget {
                   );
                 }
 
+                /// SUCCESS STATE - MOSTRO GLI ARTICOLI
                 if (state is GazzettaLoaded) {
                   return ListView.builder(
                     shrinkWrap: true,
@@ -88,7 +91,6 @@ class GazzettaScreen extends StatelessWidget {
                     },
                   );
                 }
-
                 return const SizedBox();
               },
             ),

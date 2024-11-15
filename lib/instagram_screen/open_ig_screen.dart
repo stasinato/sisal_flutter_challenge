@@ -45,7 +45,7 @@ Future<void> launchInstagram(BuildContext context) async {
     if (await canLaunchUrl(instagramUrl)) {
       await launchUrl(instagramUrl);
     } else {
-      // ask to install ig
+      // se non posso lanciare ig, chiedo all'utente se vuole installare l'app
       final result = await showDialog<bool>(
             context: context,
             builder: (context) => AlertDialog.adaptive(
@@ -66,6 +66,7 @@ Future<void> launchInstagram(BuildContext context) async {
           ) ??
           false;
 
+      /// se si provo ad aprire lo store
       if (result) {
         final storeUrl = Platform.isAndroid ? playStoreUrl : appStoreUrl;
 

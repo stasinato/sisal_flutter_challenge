@@ -8,7 +8,7 @@ import '../repository/gazzetta_repository.dart';
 part 'gazzetta_state.dart';
 
 class GazzettaCubit extends Cubit<GazzettaState> {
-  GazzettaCubit() : super(GazzettaInitial()) {
+  GazzettaCubit() : super(GazzettaLoading()) {
     fetchSoccerFeedData();
   }
 
@@ -17,8 +17,13 @@ class GazzettaCubit extends Cubit<GazzettaState> {
   Future<void> fetchSoccerFeedData() async {
     emit(GazzettaLoading());
     try {
+      /// fetch xml da repository
       final feedData = await _repository.fetchSoccerFeedData();
+
+      /// parso xml in articoli
       final articles = _parseArticles(feedData);
+
+      /// emetto stato loaded con articoli
       emit(GazzettaLoaded(articles: articles));
     } catch (e) {
       emit(GazzettaError(error: e.toString()));

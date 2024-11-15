@@ -20,7 +20,8 @@ class GalleryCubit extends Cubit<GalleryState> {
     return '${directory.path}/saved_photo.jpg';
   }
 
-  /// funzione usata all'inizio per caricare l'immagine salvata sul dispositivo
+  /// funzione usata all'inizio per caricare l'eventuale immagine salvata sul
+  /// dispositivo
   Future<void> _loadImageFromDevice() async {
     try {
       /// usato solo per simulare un caricamento più lento e mostrare il

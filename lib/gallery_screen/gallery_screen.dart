@@ -49,13 +49,19 @@ class GalleryScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(height: 8),
+
+                      /// LOADING STATE PER CARICARE L'IMMAGINE
                       if (state is GalleryLoading)
                         const Center(
                             child: CircularProgressIndicator.adaptive()),
                       const SizedBox(height: 8),
+
+                      /// EMPTY STATE
                       if (image == null && state is GalleryLoading == false)
                         _buildEmptyState(context)
                       else if (image != null)
+
+                        /// SUCCESS STATE
                         Column(
                           children: [
                             InkWell(
@@ -90,6 +96,8 @@ class GalleryScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              /// ERROR STATE
               if (state is GalleryError)
                 SliverToBoxAdapter(
                   child: Padding(

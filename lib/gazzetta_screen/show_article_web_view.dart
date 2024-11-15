@@ -21,7 +21,7 @@ class _ShowArticleWebViewState extends State<ShowArticleWebView> {
         NavigationDelegate(
           onProgress: (int progressValue) {
             /// se torno indietro prima che la pagina sia completamente caricata
-            /// rischio memory leak
+            /// rischio memory leak se aggiorna lo stato.
             if (mounted) {
               setState(() {
                 progress = progressValue / 100.0;

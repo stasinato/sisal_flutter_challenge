@@ -14,14 +14,16 @@ class GazzettaArticle {
     required this.thumbnail,
   });
 
+  /// metodo per creare oggetto da un item xml
   factory GazzettaArticle.fromXmlElement(XmlElement xml) {
+    /// uso la libreria html_unescape per decodificare i caratteri speciali nel
+    /// titolo. Ad esempio &amp; diventa &
     final HtmlUnescape unescape = HtmlUnescape();
 
     return GazzettaArticle(
       title: unescape.convert(xml.findElements('title').first.innerText),
-      link: unescape.convert(xml.findElements('link').first.innerText),
-      description:
-          unescape.convert(xml.findElements('description').first.innerText),
+      link: xml.findElements('link').first.innerText,
+      description: xml.findElements('description').first.innerText,
       thumbnail: xml.findElements('media:thumbnail').first.getAttribute('url')!,
     );
   }
