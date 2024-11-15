@@ -10,7 +10,7 @@ class ShowArticleWebView extends StatefulWidget {
 }
 
 class _ShowArticleWebViewState extends State<ShowArticleWebView> {
-  late WebViewController controller;
+  late WebViewController? controller;
   double progress = 0.0;
 
   @override
@@ -20,9 +20,13 @@ class _ShowArticleWebViewState extends State<ShowArticleWebView> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progressValue) {
-            setState(() {
-              progress = progressValue / 100.0;
-            });
+            /// se torno indietro prima che la pagina sia completamente caricata
+            /// rischio memory leak
+            if (mounted) {
+              setState(() {
+                progress = progressValue / 100.0;
+              });
+            }
           },
         ),
       )
@@ -30,8 +34,13 @@ class _ShowArticleWebViewState extends State<ShowArticleWebView> {
   }
 
   @override
+  void dispose() {
+    controller = null;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print("progress: $progress");
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -46,7 +55,7 @@ class _ShowArticleWebViewState extends State<ShowArticleWebView> {
             ),
           Expanded(
             child: WebViewWidget(
-              controller: controller,
+              controller: controller!,
             ),
           ),
         ],

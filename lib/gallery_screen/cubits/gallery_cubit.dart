@@ -14,13 +14,17 @@ class GalleryCubit extends Cubit<GalleryState> {
 
   final _picker = ImagePicker();
 
+  /// funzione helper per ottenere il path dell'immagine salvata
   Future<String> _getImagePath() async {
     final directory = await getApplicationDocumentsDirectory();
     return '${directory.path}/saved_photo.jpg';
   }
 
+  /// funzione usata all'inizio per caricare l'immagine salvata sul dispositivo
   Future<void> _loadImageFromDevice() async {
     try {
+      /// usato solo per simulare un caricamento più lento e mostrare il
+      /// CircularProgressIndicator
       await Future.delayed(const Duration(milliseconds: 700));
       final imagePath = await _getImagePath();
       final file = File(imagePath);
@@ -50,9 +54,8 @@ class GalleryCubit extends Cubit<GalleryState> {
     }
   }
 
-  Future<void> pickImage() async {
+  Future<void> pickImageFromGallery() async {
     try {
-      emit(GalleryLoading(state.image));
       final image = await _picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         await _saveImage(image);

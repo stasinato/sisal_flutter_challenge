@@ -21,7 +21,7 @@ void showPickerBottomSheet(BuildContext context) {
               title: const Text('Seleziona dalla galleria'),
               onTap: () {
                 context.pop();
-                context.read<GalleryCubit>().pickImage();
+                context.read<GalleryCubit>().pickImageFromGallery();
               },
             ),
             ListTile(

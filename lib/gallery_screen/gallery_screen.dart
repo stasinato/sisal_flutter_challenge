@@ -28,75 +28,91 @@ class GalleryScreen extends StatelessWidget {
         builder: (context, state) {
           final image = state.image;
 
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Questa schermata permette di aprire la galleria del '
-                    'dispositivo e selezionare una foto o in alternativa quella'
-                    ' di scattarla ed utilizzarla. Una volta selezionata, la '
-                    'foto verrà visualizzata sotto. Una volta caricata è '
-                    'possibile cancellarla tramite pulsante nell\'AppBar',
-                    style: TextStyle(fontSize: 18),
+          /// ho usato una CustomScrollView perché ritengo sia il modo più
+          /// pulito di tenere sempre il pulsante a fondo pagina. Usando solo
+          /// una singleChildScrollView, avrei dovuto dare un'altezza fissa ai
+          /// componenti.
+          return CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding: const EdgeInsets.all(16.0),
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Questa schermata permette di aprire la galleria del '
+                        'dispositivo e selezionare una foto o in alternativa quella'
+                        ' di scattarla ed utilizzarla. Una volta selezionata, la '
+                        'foto verrà visualizzata sotto. Una volta caricata è '
+                        'possibile cancellarla tramite pulsante nell\'AppBar',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 8),
+                      if (state is GalleryLoading)
+                        const Center(
+                            child: CircularProgressIndicator.adaptive()),
+                      const SizedBox(height: 8),
+                      if (image == null && state is GalleryLoading == false)
+                        _buildEmptyState(context)
+                      else if (image != null)
+                        Column(
+                          children: [
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              onTap: () {
+                                ImageProvider imageProvider =
+                                    FileImage(File(image.path));
+                                showImageViewer(context, imageProvider,
+                                    immersive: false,
+                                    closeButtonColor: Colors.grey,
+                                    swipeDismissible: true,
+                                    useSafeArea: true);
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.file(
+                                  File(image.path),
+                                  height: 300,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            const Text(
+                              "Tocca l'immagine per aprirla!",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ],
+                        ),
+                      const SizedBox(height: 16),
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  if (state is GalleryLoading)
-                    const Center(child: CircularProgressIndicator.adaptive()),
-                  if (image == null && state is GalleryLoading == false)
-                    _buildEmptyState(context)
-                  else if (image != null)
-                    Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            ImageProvider imageProvider =
-                                FileImage(File(image.path));
-                            showImageViewer(context, imageProvider,
-                                immersive: false,
-                                closeButtonColor: Colors.grey,
-                                swipeDismissible: true,
-                                useSafeArea: true);
-                          },
-                          child: Container(
-                            clipBehavior: Clip.hardEdge,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Colors.grey,
-                                width: 2,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Image.file(
-                                height: 300,
-                                File(image.path),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          "Tocca l'immagine per aprirla!",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  const SizedBox(height: 16),
-                  _buildAddPhotoButton(context),
-                  if (state is GalleryError)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(state.error,
-                          style: const TextStyle(color: Colors.red)),
-                    ),
-                ],
+                ),
               ),
-            ),
+              if (state is GalleryError)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Center(
+                      child: Text(
+                        state.error,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ),
+                ),
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: _buildAddPhotoButton(context),
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),
