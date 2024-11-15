@@ -11,20 +11,45 @@ class ShowArticleWebView extends StatefulWidget {
 
 class _ShowArticleWebViewState extends State<ShowArticleWebView> {
   late WebViewController controller;
+  double progress = 0.0;
 
   @override
   void initState() {
     super.initState();
-    controller = WebViewController()..loadRequest(Uri.parse(widget.articleURL));
-    ;
+    controller = WebViewController()
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progressValue) {
+            setState(() {
+              progress = progressValue / 100.0;
+            });
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.articleURL));
   }
 
   @override
   Widget build(BuildContext context) {
+    print("progress: $progress");
     return Scaffold(
       appBar: AppBar(),
-      body: WebViewWidget(
-        controller: controller,
+      body: Column(
+        children: [
+          if (progress < 1.0)
+            TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin: 0, end: progress),
+              duration: const Duration(milliseconds: 150),
+              builder: (context, value, child) {
+                return LinearProgressIndicator(value: value);
+              },
+            ),
+          Expanded(
+            child: WebViewWidget(
+              controller: controller,
+            ),
+          ),
+        ],
       ),
     );
   }
