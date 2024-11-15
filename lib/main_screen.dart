@@ -18,7 +18,7 @@ class MainScreen extends StatelessWidget {
               icon: Icon(Icons.sports_soccer), label: 'Gazzetta'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Instagram'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.photo_album), label: 'Gallery'),
+              icon: Icon(Icons.photo_album), label: 'Galleria'),
         ],
         currentIndex: navigationShell.currentIndex,
         onTap: (int index) => navigationShell.goBranch(index),

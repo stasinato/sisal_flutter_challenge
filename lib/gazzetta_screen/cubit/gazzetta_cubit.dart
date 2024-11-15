@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:xml/xml.dart';
@@ -14,26 +12,26 @@ class GazzettaCubit extends Cubit<GazzettaState> {
     fetchSoccerFeedData();
   }
 
-  final GazzettaRepository _gazzettaRepository = GazzettaRepository();
+  final _repository = GazzettaRepository();
 
   Future<void> fetchSoccerFeedData() async {
     emit(GazzettaLoading());
     try {
-      final List<GazzettaArticle> articles = [];
-      final soccerFeedData = await _gazzettaRepository.fetchSoccerFeedData();
-      log(soccerFeedData);
-      final document = XmlDocument.parse(soccerFeedData);
-
-      final articlesXml = document.findAllElements('item');
-      for (XmlElement xmlItem in articlesXml) {
-        articles.add(GazzettaArticle.fromXmlElement(xmlItem));
-      }
+      final feedData = await _repository.fetchSoccerFeedData();
+      final articles = _parseArticles(feedData);
       emit(GazzettaLoaded(articles: articles));
     } catch (e) {
-      print('Error fetching data: $e');
-      emit(GazzettaError(
-        error: e.toString(),
-      ));
+      emit(GazzettaError(error: e.toString()));
     }
+  }
+
+  List<GazzettaArticle> _parseArticles(String feedData) {
+    final articles = <GazzettaArticle>[];
+    final document = XmlDocument.parse(feedData);
+    final articlesXml = document.findAllElements('item');
+    for (final xmlItem in articlesXml) {
+      articles.add(GazzettaArticle.fromXmlElement(xmlItem));
+    }
+    return articles;
   }
 }

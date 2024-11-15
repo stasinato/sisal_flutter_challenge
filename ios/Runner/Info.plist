@@ -50,5 +50,11 @@
     <array>
         <string>instagram</string>
     </array>
+
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Questa app richiede accesso alla galleria per consentirti di selezionare immagini direttamente dal tuo dispositivo.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Questa app richiede accesso alla fotocamera per consentirti di scattare foto e utilizzarle all'interno dell'app.</string>
+
 </dict>
 </plist>

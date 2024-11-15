@@ -20,8 +20,11 @@ class GazzettaScreen extends StatelessWidget {
             BlocBuilder<GazzettaCubit, GazzettaState>(
               builder: (context, state) {
                 if (state is GazzettaLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
                   );
                 }
 
@@ -31,13 +34,13 @@ class GazzettaScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Error\n${state.error}'),
+                        Text('Errore: \n${state.error}'),
                         const SizedBox(height: 8),
                         ElevatedButton(
                           onPressed: () {
                             context.read<GazzettaCubit>().fetchSoccerFeedData();
                           },
-                          child: const Text('Retry'),
+                          child: const Text('Riprova'),
                         ),
                       ],
                     ),
@@ -73,8 +76,10 @@ class GazzettaScreen extends StatelessWidget {
                           ),
                           child: CachedNetworkImage(
                             imageUrl: article.thumbnail,
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator.adaptive(),
+                            fit: BoxFit.cover,
+                            width: 100,
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator.adaptive()),
                             errorWidget: (context, url, error) =>
                                 const Icon(Icons.error),
                           ),
