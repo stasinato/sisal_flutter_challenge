@@ -72,11 +72,11 @@ Future<void> launchInstagram(BuildContext context) async {
         if (await canLaunchUrl(storeUrl)) {
           await launchUrl(storeUrl);
         } else {
-          throw 'Could not launch Instagram or store';
+          throw 'Impossibile aprire il link';
         }
       }
     }
   } catch (e) {
-    print('Error launching ig: $e');
+    print('Errore: $e');
   }
 }
