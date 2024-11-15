@@ -9,6 +9,8 @@ il package 'go_router'.
 
 L'app è divisa in cartelle, ognuna delle quali contiene una sezione diversa.
 
+All'interno di ogni cartella, l'organizzazione dei file è la seguente:
+
 ##### cubits: per la gestione dello stato.
 
 ##### widgets: per i componenti grafici riutilizzabili.
