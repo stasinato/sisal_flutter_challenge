@@ -1,5 +1,10 @@
 # Flutter Challenge
 
+App creata con:
+Flutter (Channel stable, 3.24.1)
+Dart version 3.5.1
+
+
 # Architettura del progetto
 
 Il progetto è stato sviluppato con il pattern BLoC e per la gestione del routing è stato utilizzato
