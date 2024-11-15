@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../gazzetta_screen/gazzetta_screen.dart';
 import '../gazzetta_screen/show_article_web_view.dart';
+import '../instagram_screen/open_ig_screen.dart';
 import '../main_screen.dart';
 
 // GoRouter configuration
@@ -36,7 +37,7 @@ final router = GoRouter(
             GoRoute(
               path: '/instagram',
               builder: (BuildContext context, GoRouterState state) =>
-                  const Placeholder(),
+                  const OpenIgScreen(),
               routes: const <RouteBase>[],
             ),
           ],

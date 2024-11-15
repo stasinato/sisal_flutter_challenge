@@ -26,19 +26,21 @@ class GazzettaScreen extends StatelessWidget {
                 }
 
                 if (state is GazzettaError) {
-                  return Column(
-                    children: [
-                      const Center(
-                        child: Text('Error'),
-                      ),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        onPressed: () {
-                          context.read<GazzettaCubit>().fetchSoccerFeedData();
-                        },
-                        child: const Text('Retry'),
-                      ),
-                    ],
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Error\n${state.error}'),
+                        const SizedBox(height: 8),
+                        ElevatedButton(
+                          onPressed: () {
+                            context.read<GazzettaCubit>().fetchSoccerFeedData();
+                          },
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    ),
                   );
                 }
 

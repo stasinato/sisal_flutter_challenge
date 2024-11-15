@@ -13,4 +13,8 @@ final class GazzettaLoaded extends GazzettaState {
   GazzettaLoaded({required this.articles});
 }
 
-final class GazzettaError extends GazzettaState {}
+final class GazzettaError extends GazzettaState {
+  final String error;
+
+  GazzettaError({required this.error});
+}

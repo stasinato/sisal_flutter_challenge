@@ -30,7 +30,10 @@ class GazzettaCubit extends Cubit<GazzettaState> {
       }
       emit(GazzettaLoaded(articles: articles));
     } catch (e) {
-      emit(GazzettaError());
+      print('Error fetching data: $e');
+      emit(GazzettaError(
+        error: e.toString(),
+      ));
     }
   }
 }
