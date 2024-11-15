@@ -78,6 +78,10 @@ Future<void> launchInstagram(BuildContext context) async {
       }
     }
   } catch (e) {
-    print('Errore: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Errore: $e'),
+      ),
+    );
   }
 }
