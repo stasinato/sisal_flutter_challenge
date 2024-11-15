@@ -42,10 +42,12 @@ class GalleryCubit extends Cubit<GalleryState> {
   /// dispositivo
   Future<void> _loadImageFromDevice() async {
     try {
+      await retrieveLostData();
+
       /// usato solo per simulare un caricamento più lento e mostrare il
       /// CircularProgressIndicator
       await Future.delayed(const Duration(milliseconds: 700));
-      await retrieveLostData();
+
       final imagePath = await _getImagePath();
       final file = File(imagePath);
 
