@@ -31,10 +31,9 @@ class MyApp extends StatelessWidget {
 /// per un'app più complessa, si può considerare di spostare i provider in un
 /// file separato
 final providers = [
-  BlocProvider<GazzettaCubit>(
-    create: (context) => GazzettaCubit(),
-  ),
+  BlocProvider<GazzettaCubit>(create: (context) => GazzettaCubit()),
   BlocProvider<GalleryCubit>(
-    create: (context) => GalleryCubit(),
+    create: (context) => GalleryCubit(router),
+    lazy: false,
   ),
 ];

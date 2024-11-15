@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
@@ -8,11 +9,28 @@ import 'package:path_provider/path_provider.dart';
 part 'gallery_state.dart';
 
 class GalleryCubit extends Cubit<GalleryState> {
-  GalleryCubit() : super(const GalleryLoading(null)) {
+  final GoRouter _router;
+
+  GalleryCubit(this._router) : super(const GalleryLoading(null)) {
     _loadImageFromDevice();
   }
 
   final _picker = ImagePicker();
+
+  /// funzione utilizzata per recuperare l'immagine persa:
+  /// ref: https://pub.dev/packages/image_picker
+  /// section Handling MainActivity destruction
+  Future<void> retrieveLostData() async {
+    final LostDataResponse response = await _picker.retrieveLostData();
+    if (response.isEmpty) {
+      return;
+    }
+    if (response.file != null) {
+      _router.go('/gallery');
+      await _saveImage(response.file!);
+      emit(GalleryPickerSuccess(response.file!));
+    }
+  }
 
   /// funzione helper per ottenere il path dell'immagine salvata
   Future<String> _getImagePath() async {
@@ -27,6 +45,7 @@ class GalleryCubit extends Cubit<GalleryState> {
       /// usato solo per simulare un caricamento più lento e mostrare il
       /// CircularProgressIndicator
       await Future.delayed(const Duration(milliseconds: 700));
+      await retrieveLostData();
       final imagePath = await _getImagePath();
       final file = File(imagePath);
 
