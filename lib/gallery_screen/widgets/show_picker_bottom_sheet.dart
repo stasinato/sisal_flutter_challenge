@@ -7,8 +7,6 @@ import '../cubits/gallery_cubit.dart';
 void showPickerBottomSheet(BuildContext context) {
   showModalBottomSheet(
     useRootNavigator: true,
-    clipBehavior: Clip.hardEdge,
-    useSafeArea: true,
     context: context,
     builder: (context) {
       return SafeArea(
