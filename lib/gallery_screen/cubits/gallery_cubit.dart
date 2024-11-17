@@ -42,7 +42,9 @@ class GalleryCubit extends Cubit<GalleryState> {
   /// dispositivo
   Future<void> _loadImageFromDevice() async {
     try {
-      await retrieveLostData();
+      if (Platform.isAndroid) {
+        await retrieveLostData();
+      }
 
       /// usato solo per simulare un caricamento più lento e mostrare il
       /// CircularProgressIndicator
