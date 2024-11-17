@@ -21,6 +21,7 @@ class GalleryCubit extends Cubit<GalleryState> {
   /// ref: https://pub.dev/packages/image_picker
   /// section Handling MainActivity destruction
   Future<void> retrieveLostData() async {
+    if (Platform.isAndroid == false) return;
     final LostDataResponse response = await _picker.retrieveLostData();
     if (response.isEmpty) {
       return;
@@ -42,9 +43,7 @@ class GalleryCubit extends Cubit<GalleryState> {
   /// dispositivo
   Future<void> _loadImageFromDevice() async {
     try {
-      if (Platform.isAndroid) {
-        await retrieveLostData();
-      }
+      await retrieveLostData();
 
       /// usato solo per simulare un caricamento più lento e mostrare il
       /// CircularProgressIndicator
