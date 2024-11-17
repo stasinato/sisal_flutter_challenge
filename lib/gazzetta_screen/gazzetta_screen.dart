@@ -86,8 +86,6 @@ class GazzettaScreen extends StatelessWidget {
                                       child:
                                           CircularProgressIndicator.adaptive()),
                                   errorWidget: (context, url, error) {
-                                    print('Error loading image: $error');
-                                    print('Error url  : $url');
                                     return const Icon(Icons.error);
                                   })
                               : const Icon(Icons.error),
