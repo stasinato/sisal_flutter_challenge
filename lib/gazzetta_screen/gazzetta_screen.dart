@@ -74,18 +74,23 @@ class GazzettaScreen extends StatelessWidget {
                         ),
                         leading: Container(
                           clipBehavior: Clip.hardEdge,
+                          width: 100,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: CachedNetworkImage(
-                            imageUrl: article.thumbnail,
-                            fit: BoxFit.cover,
-                            width: 100,
-                            placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator.adaptive()),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
+                          child: article.thumbnail.isNotEmpty
+                              ? CachedNetworkImage(
+                                  imageUrl: article.thumbnail,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => const Center(
+                                      child:
+                                          CircularProgressIndicator.adaptive()),
+                                  errorWidget: (context, url, error) {
+                                    print('Error loading image: $error');
+                                    print('Error url  : $url');
+                                    return const Icon(Icons.error);
+                                  })
+                              : const Icon(Icons.error),
                         ),
                       );
                     },
