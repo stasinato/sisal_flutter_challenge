@@ -33,7 +33,8 @@ class OpenIgScreen extends StatelessWidget {
 }
 
 Future<void> launchInstagram(BuildContext context) async {
-  final Uri instagramUrl = Uri.parse('instagram://');
+  final Uri instagramUrl =
+      Uri.parse('instagram://user?username=sisal_corporate');
 
   // ig urls
   final Uri playStoreUrl = Uri.parse(
